@@ -81,7 +81,6 @@ export default function App() {
     sizing().width(100).height(100)
   ).apply(Rectangle)
 
-debugger
   return (
     <div className="Viewport">
       <Camera

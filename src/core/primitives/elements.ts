@@ -1,6 +1,6 @@
-import { SceneObject } from "../types";
+import { SceneObject } from "../types"
 
-export function element (tag: string): HtmlElement {
+export function element(tag: string): HtmlElement {
   return new HtmlElement(tag)
 }
 
@@ -11,13 +11,30 @@ export class HtmlElement implements SceneObject<HTMLElement> {
     this._htmlElement = document.createElement(tagName)
   }
 
-  class (value: string): this {
+  children(...children: HtmlElement[]): this {
+    for (let i = 0; i < this.htmlElement().children.length; i++)
+      this.htmlElement().removeChild(this.htmlElement().children.item(i))
+    children.forEach((child) => void child.apply(this.htmlElement()))
+    return this
+  }
+
+  class(value: string): this {
     this._htmlElement.className = value
     return this
   }
 
-  style (value: Partial<CSSStyleDeclaration>): this {
+  on(event: string, handler: (this: this, e: Event) => void): this {
+    this.htmlElement().addEventListener(event, handler)
+    return this
+  }
+
+  style(value: Partial<CSSStyleDeclaration>): this {
     Object.assign(this._htmlElement.style, value)
+    return this
+  }
+
+  text(content: string): this {
+    this.htmlElement().innerHTML = content
     return this
   }
 
