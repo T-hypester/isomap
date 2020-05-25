@@ -1,0 +1,32 @@
+.MapGrid {
+  display: grid;
+  align-items: stretch;
+  justify-items: stretch;
+  position: relative;
+  transform-origin: center;
+  transform-style: preserve-3d;
+}
+
+.MapGrid-Cell {
+  position: static;
+  outline: 1px dotted grey;
+  transform-style: preserve-3d;
+}
+
+.Sprite {
+  transform: rotateZ(-45deg);
+  outline: 1px dashed red;
+}
+
+.Viewport {
+  background-color: black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}

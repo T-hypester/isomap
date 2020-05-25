@@ -1,0 +1,24 @@
+.Nav {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-areas:
+    ". up ."
+    "left . right"
+    ". down .";
+}
+
+.Nav-Up {
+  grid-area: up;
+}
+
+.Nav-Down {
+  grid-area: down;
+}
+.Nav-Left {
+  grid-area: left;
+}
+.Nav-Right {
+  grid-area: right;
+}
