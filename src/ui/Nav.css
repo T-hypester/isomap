@@ -5,7 +5,7 @@
   display: grid;
   grid-template-areas:
     ". up ."
-    "left . right"
+    "left pippo right"
     ". down .";
 }
 
@@ -21,4 +21,7 @@
 }
 .Nav-Right {
   grid-area: right;
+}
+.Nav-Pippo {
+  grid-area: pippo;
 }

@@ -1,4 +1,4 @@
-import { element, HtmlElement } from "../../core/primitives/elements";
+import { component, HtmlComponent } from "../../core-html/component";
 
 import '../Nav.css'
 
@@ -6,20 +6,22 @@ export default function Nav() {
   return new HtmlNav
 }
 
-class HtmlNav extends HtmlElement {
-  private up: HtmlElement
-  private left: HtmlElement
-  private right: HtmlElement
-  private down: HtmlElement
+class HtmlNav extends HtmlComponent {
+  private up: HtmlComponent
+  private left: HtmlComponent
+  private right: HtmlComponent
+  private down: HtmlComponent
+  private pippo: HtmlComponent
 
   constructor() {
     super('div')
 
     this.class('Nav').children(
-      this.up = element('button').class('Nav-Up').text("^"),
-      this.left = element('button').class('Nav-Left').text('&lt'),
-      this.right = element('button').class('Nav-Right').text('&gt'),
-      this.down = element('button').class('Nav-Down').text("v")
+      this.up = component('button').class('Nav-Up').text("⬆"),
+      this.left = component('button').class('Nav-Left').text('⬅'),
+      this.right = component('button').class('Nav-Right').text('➡'),
+      this.down = component('button').class('Nav-Down').text("⬇"),
+      this.pippo = component('button').class('Nav-Pippo').text("&#129322;")
     )
   }
 
@@ -40,6 +42,10 @@ class HtmlNav extends HtmlElement {
 
   onRotateDown(listener: () => void): this {
     this.down.on('click', listener)
+    return this
+  }
+  onPippo(listener: () => void): this {
+    this.pippo.on('click', listener)
     return this
   }
 }

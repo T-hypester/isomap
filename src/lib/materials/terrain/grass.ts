@@ -5,7 +5,7 @@ export default function grass() {
   return new Grass()
 }
 
-type Season = "spring" | "summer" | "autumn" | "fall" | "winter"
+export type Season = "spring" | "summer" | "autumn" | "fall" | "winter"
 
 class Grass extends Material {
   constructor() {

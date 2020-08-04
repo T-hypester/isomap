@@ -1,10 +1,10 @@
-import { ReactFeature } from '../diocristo/features'
+import { AbstractFeature } from "./features"
 
 export function position() {
   return new Position()
 }
 
-class Position extends ReactFeature {
+class Position extends AbstractFeature {
   private posX: string
   private posY: string
 
@@ -23,6 +23,7 @@ class Position extends ReactFeature {
   ): Partial<CSSStyleDeclaration> {
     return {
       ...source,
+      position: "absolute",
       left: this.posX,
       top: this.posY,
     }

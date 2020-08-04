@@ -1,4 +1,4 @@
-import { Size2D, Point, SceneObject } from "../core/types"
+import { Size2D, Point, Component } from "../core/types"
 
 export interface WorlMapProps {
   world: World

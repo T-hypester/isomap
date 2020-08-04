@@ -1,18 +1,16 @@
 import * as React from "react"
 
-import { features } from "../core/utils"
-import Rectangle from "../core/primitives/Rectangle"
-import { sizing } from "../core/size"
-import Building from "../lib/buildings/Building"
-import grass from "../lib/materials/terrain/grass"
-import Nav from "../ui/Nav"
-import Camera from "../ui/Camera"
-
-import { World } from "./types"
-import { MapGrid } from "./dom"
+import { features } from "../../core/utils"
+import { sizing } from "../../core/size"
+import { material } from "../../core/material"
+import { literal } from "../../core/colors"
+import Nav from "../../ui/Nav"
+import Camera from "../../ui/Camera"
+import { component, HtmlComponent } from "../../core-html/component"
+import { World } from "../types"
+import { MapGrid } from "../dom"
 
 import "./App.css"
-import { element } from "../core/primitives/elements"
 
 const CAMERA_ROTATION_ANGLE = 15
 
@@ -23,11 +21,18 @@ export default function App() {
 
   const world: World = React.useMemo(
     () => ({
-      objects: [{
-        position: { x: 0, y: 0 },
-        object: element('div').style({ backgroundColor: 'green' })
-      }],
-/*       objects: [
+      objects: [
+        {
+          position: { x: 0, y: 0 },
+          object: features(
+            material().color(literal('green')),
+            sizing().width(100).height(100)
+          ).apply(
+            component("div")
+          ),
+        },
+      ],
+      /*       objects: [
         {
           position: { x: 0, y: 0 },
           object: (
@@ -61,10 +66,12 @@ export default function App() {
   )
 
   React.useEffect(() => {
-    if (cameraRef.current) MapGrid().world(world).apply(cameraRef.current)
+    if (cameraRef.current) MapGrid()
+                             .world(world)
+                             .apply(HtmlComponent.fromNative(cameraRef.current))
   }, [cameraRef.current])
 
-  const SpringGrass = features(
+  /* const SpringGrass = features(
     grass().season("spring"),
     sizing().width(100).height(100)
   ).apply(Rectangle)
@@ -79,7 +86,7 @@ export default function App() {
   const WinterGrass = features(
     grass().season("winter"),
     sizing().width(100).height(100)
-  ).apply(Rectangle)
+  ).apply(Rectangle) */
 
   return (
     <div className="Viewport">

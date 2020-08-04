@@ -1,4 +1,4 @@
-import { ReactFeature } from "../diocristo/features"
+import { AbstractFeature } from "./features"
 
 export function rotation(): Rotations {
   return new Rotations()
@@ -12,7 +12,7 @@ export function zoom(value: number): Zoom {
   return new Zoom(value)
 }
 
-abstract class BaseTransform extends ReactFeature {
+abstract class BaseTransform extends AbstractFeature {
   protected transforms: string[] = []
   protected transformOriginX: string
   protected transformOriginY: string
@@ -20,15 +20,18 @@ abstract class BaseTransform extends ReactFeature {
   applyStyle(
     source: Partial<CSSStyleDeclaration>
   ): Partial<CSSStyleDeclaration> {
-    const transform = this.transforms.join(" ")
+    const transform = [...this.transforms]
+    transform.reverse()
+    const cssTransform = transform.join(" ")
     return {
       ...source,
-      transform: (source.transform || "") + " " + transform,
+      transform: cssTransform + " " + (source.transform || ""),
       transformOrigin:
         source.transformOrigin ||
         `${this.transformOriginX || "center"} ${
           this.transformOriginY || "center"
         }`,
+      transformStyle: "preserve-3d",
     }
   }
 

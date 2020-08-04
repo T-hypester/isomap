@@ -1,6 +1,4 @@
-import { ComponentType } from "react"
 
-import { withOverriddenStyle } from "./utils"
 
 export interface IdEntity<T> {
   id: T
@@ -17,22 +15,27 @@ export type StyleProps = {
   style?: Partial<CSSStyleDeclaration>
 }
 
-export interface Feature<T> {
-  apply(object: T): T
+export interface Component<N> {
+  style(): Partial<CSSStyleDeclaration>
+  style(value: Partial<CSSStyleDeclaration>): this
+  toNative(): N
+}
+
+export interface Feature {
+  apply<N, C extends Component<N>>(component: C): C
 }
 
 export interface FeatureApplyFn<T> {
   (object: T): T
 }
 
-export interface SceneObject<T> extends Feature<T> {}
 
-export interface ObjectStyle<T> extends Feature<T> {
+export interface ObjectStyle extends Feature {
   applyClass(sourceClasses: string): string
   applyStyle(sourceStyle: Partial<CSSStyleDeclaration>): Partial<CSSStyleDeclaration>
 }
 
-export interface Transform<T> extends Feature<T> {
+export interface Transform extends Feature {
   applyStyle(sourceStyle: Partial<CSSStyleDeclaration>): Partial<CSSStyleDeclaration>
 }
 
@@ -49,7 +52,6 @@ export interface Texture {
   tileSize?: TileSize
 }
 
-type Axes2D = "x" | "y"
 
 export interface Geometry<A extends string> {
   axes: A

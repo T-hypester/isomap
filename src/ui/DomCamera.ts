@@ -1,7 +1,7 @@
 import { rotation, zoom } from "../core/transforms"
-import { HtmlElement } from "../core/primitives/elements"
+import { HtmlComponent } from "../core-html/component"
 
-export class DomCamera extends HtmlElement {
+export class DomCamera extends HtmlComponent {
   rotation(horiz: number, vert: number) {
     const baseStyle: Partial<CSSStyleDeclaration> = {
       transformStyle: "preserve-3d",
@@ -14,6 +14,6 @@ export class DomCamera extends HtmlElement {
       .x(horiz)
       .z(vert)
       .applyStyle(zoomStyle)
-    Object.assign(this.htmlElement().style, cameraStyle)
+    Object.assign(this.toNative().style, cameraStyle)
   }
 }

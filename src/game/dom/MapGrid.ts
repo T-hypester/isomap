@@ -1,14 +1,14 @@
-import { HtmlElement, element } from "../../core/primitives/elements"
+import { HtmlComponent, component } from "../../core-html/component"
 
 import { World, WorldObject } from "../types"
 
 import "../styles.css"
 
 interface HtmlWorldObject extends WorldObject {
-  object: HtmlElement
+  object: HtmlComponent
 }
 
-interface HtmlWorld extends World {
+export interface HtmlWorld extends World {
   objects: HtmlWorldObject[]
 }
 
@@ -16,10 +16,10 @@ export function MapGrid(): HtmlMapgGrid {
   return new HtmlMapgGrid()
 }
 
-class HtmlMapgGrid extends HtmlElement {
-  protected _world: HtmlWorld
+class HtmlMapgGrid extends HtmlComponent {
   protected _tileSize: number
-  protected tiles: HtmlElement[]
+  private _world?: HtmlWorld
+  protected tiles: HtmlComponent[]
 
   constructor() {
     super("div")
@@ -32,11 +32,12 @@ class HtmlMapgGrid extends HtmlElement {
 
     for (let y = 0; y < world.size.height; y++)
       for (let x = 0; x < world.size.width; x++) {
-        this.tiles.push(element("div"))
+        this.tiles.push(component("div"))
       }
 
     world.objects.forEach((obj) => {
-      this.tiles[obj.position.x + obj.position.y * world.size.width] = obj.object
+      this.tiles[obj.position.x + obj.position.y * world.size.width] =
+        obj.object
     })
 
     return this
@@ -47,16 +48,17 @@ class HtmlMapgGrid extends HtmlElement {
     return this
   }
 
-  apply(target: HTMLElement): HTMLElement {
+  apply<C extends HtmlComponent>(target: C): C {
     this.style({
       gridTemplateColumns: `repeat(${this._world.size.width}, ${this._tileSize}px)`,
       gridTemplateRows: `repeat(${this._world.size.height}, ${this._tileSize}px)`,
     })
+
     this.tiles.forEach((tile) => {
-      const cell = element('div').class('MapGrid-Cell')
-      tile.apply(cell.htmlElement())
-      cell.apply(this.htmlElement())
+      const cell = component("div").class("MapGrid-Cell")
+      tile.apply(cell)
+      cell.apply(this)
     })
-    return super.apply(target)
+    return super.apply(target) as C
   }
 }

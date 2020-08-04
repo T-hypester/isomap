@@ -1,21 +1,13 @@
-import * as React from "react"
-
-import { Feature } from "../core/types"
+import { Feature, Component } from "./types"
 
 export type StyleProps = {
   className?: string
   style?: Partial<CSSStyleDeclaration>
 }
 
-type StyleOverrideFn = (
-  source: Partial<CSSStyleDeclaration>
-) => Partial<CSSStyleDeclaration>
-type StyleOverride = Partial<CSSStyleDeclaration>
-
-export abstract class ReactFeature
-  implements Feature<React.ComponentType> {
-  apply<P extends StyleProps>(Component: React.ComponentType<P>): React.ComponentType<P> {
-    return this.mergeStyle(this.applyStyle.bind(this), Component)
+export abstract class AbstractFeature implements Feature {
+  apply<N, C extends Component<N>>(component: C): C {
+    return component.style(this.applyStyle(component.style()))
   }
 
   applyStyle(
@@ -31,7 +23,7 @@ export abstract class ReactFeature
   computeClass?(): string
   computeStyle?(): Partial<CSSStyleDeclaration>
 
-  protected mergeStyle<P extends StyleProps>(
+  /* protected mergeStyle<P extends StyleProps>(
     style: StyleOverride | StyleOverrideFn,
     Component: React.ComponentType<P>
   ): React.ComponentType<P> {
@@ -48,5 +40,5 @@ export abstract class ReactFeature
         }
       />
     )
-  }
+  } */
 }

@@ -1,18 +1,15 @@
-import { ReactFeature } from "../diocristo/features"
-
+import { AbstractFeature } from "./features"
 import { Color, Texture } from "./types"
 
 export function material() {
   return new Material()
 }
 
-export class Material extends ReactFeature {
+export class Material extends AbstractFeature {
   private _color?: Color
   private _texture?: Texture
 
-  applyStyle(
-    source: Partial<CSSStyleDeclaration>
-  ): Partial<CSSStyleDeclaration> {
+  computeStyle(): Partial<CSSStyleDeclaration> {
     const style: Partial<CSSStyleDeclaration> = {}
     if (this._color) style.backgroundColor = this._color.toString()
     if (this._texture) {
@@ -21,7 +18,7 @@ export class Material extends ReactFeature {
       style.backgroundImage = this._texture.src
       style.backgroundSize = this.getBackgroundSize()
     }
-    return { ...source, ...style }
+    return style
   }
 
   color(value: Color): this {

@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { rotation, zoom } from "../core/transforms"
-import { StyleProps } from "../diocristo/features"
+import { StyleProps } from "../core/features"
 
 export default React.forwardRef(function Camera(
   props: StyleProps & {

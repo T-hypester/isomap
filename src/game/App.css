@@ -8,9 +8,13 @@
 }
 
 .MapGrid-Cell {
-  position: static;
+  position: relative;
   outline: 1px dotted grey;
   transform-style: preserve-3d;
+}
+
+.MapGrid-Cell:hover {
+  outline: 2px solid blue;
 }
 
 .Sprite {

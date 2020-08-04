@@ -1,11 +1,11 @@
-import { HtmlElement } from "../../core/primitives/elements"
+import { HtmlComponent } from "../../core-html/component"
 import { zoom, rotation } from "../../core/transforms"
 
 export default function Camera() {
   return new HtmlCamera()
 }
 
-export class HtmlCamera extends HtmlElement {
+export class HtmlCamera extends HtmlComponent {
   static CAMERA_ROTATION_ANGLE = 15
 
   private horizontalAngle = 45
@@ -20,14 +20,14 @@ export class HtmlCamera extends HtmlElement {
       transformStyle: "preserve-3d",
       transition: "transform 0.1s linear",
     }
-    const zoomStyle = zoom(2).applyStyle(baseStyle)
     const cameraStyle = rotation()
       .initOriginX(() => "center")
       .initOriginY(() => "center")
-      .x((this.verticalAngle = vert))
       .z((this.horizontalAngle = horiz))
-      .applyStyle(zoomStyle)
-    Object.assign(this.htmlElement().style, cameraStyle)
+      .x((this.verticalAngle = vert))
+      .applyStyle(baseStyle)
+    const zoomStyle = zoom(2).applyStyle(cameraStyle)
+    Object.assign(this.toNative().style, zoomStyle)
     return this
   }
 

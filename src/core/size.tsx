@@ -1,10 +1,10 @@
-import { ReactFeature } from '../diocristo/features'
+import { AbstractFeature } from './features'
 
 export function sizing() {
   return new BaseSize()
 }
 
-class BaseSize extends ReactFeature {
+class BaseSize extends AbstractFeature {
   protected cssWidth: string
   protected cssHeight: string
 
