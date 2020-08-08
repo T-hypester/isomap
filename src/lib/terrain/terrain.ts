@@ -65,7 +65,7 @@ class Terrain extends HtmlComponent {
     features(
       sizing().height(50, "%"),
       rotation().x(-90),
-      position().y(- this._length/2),
+      position().y(- this._depth),
       translation().translateZ(-this._depth),
       sizing().height(this._depth, "px")
     ).apply(this.NorthSoil)
