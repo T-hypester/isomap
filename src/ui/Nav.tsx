@@ -9,7 +9,6 @@ export default function Nav(props: {
   onRotateUp(): void
   onZoomIn?(): void
   onZoomOut?(): void
-  onPippo(): void
 }) {
   return (
     <div className="Nav">
@@ -24,9 +23,6 @@ export default function Nav(props: {
       </button>
       <button className="Nav-Down" onClick={props.onRotateDown}>
         v
-      </button>
-      <button className="Nav-pippo" onClick={props.onPippo}>
-        :)
       </button>
     </div>
   )
