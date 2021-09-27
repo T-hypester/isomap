@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "rm -rf docs/ && webpack"
   },
   "devDependencies": {
     "@types/node": "^14.0.1",
